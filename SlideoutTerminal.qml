@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QMLTermWidget
 import QtQuick.Controls
@@ -10,9 +11,17 @@ import qs.Modules.Plugins
 Item {
     id: root
 
+    anchors.fill: parent
+
     required property var settingsData
 
-    signal hideRequested
+    signal sessionEnd(SlideoutTerminal terminal)
+
+    onVisibleChanged: {
+        if (visible) {
+            terminalWidget.forceActiveFocus();
+        }
+    }
 
     onHeightChanged: {
         //Prevents a bug that occurs when the height value becomes less than 0.
@@ -35,7 +44,7 @@ Item {
         id: terminalWidget
 
         width: parent.width
-        height: 440
+        height: parent.height
 
         font.family: "Monospace"
         font.pointSize: settingsData.fontSize || 10
@@ -44,9 +53,9 @@ Item {
 
         session: QMLTermSession {
             id: mainsession
-            initialWorkingDirectory: "$HOME";
+            initialWorkingDirectory: "$HOME"
             onFinished: {
-                mainsession.startShellProgram();
+                root.sessionEnd(root)
             }
         }
 

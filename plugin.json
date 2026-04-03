@@ -2,7 +2,7 @@
   "id": "slideoutTerminal",
   "name": "Slideout Terminal",
   "description": "A simple slideout terminal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "wesllei.h",
   "icon": "terminal",
   "type": "daemon",
