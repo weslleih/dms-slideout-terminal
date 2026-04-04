@@ -15,7 +15,7 @@ PluginSettings {
     pluginId: "slideoutTerminal"
 
     property list<string> colorSchemes
-    property list<string> fonts : Qt.fontFamilies()
+    property list<string> fonts: Qt.fontFamilies()
 
     readonly property string commandStr: "dms ipc call plugins toggle slideoutTerminal"
 
@@ -40,7 +40,7 @@ PluginSettings {
 
     StyledText {
         width: parent.width
-        text: "SettingSizes"
+        text: "Settings"
         font.pixelSize: Theme.fontSizeLarge
         font.weight: Font.Bold
         color: Theme.surfaceText
@@ -68,7 +68,7 @@ PluginSettings {
 
     SelectionSetting {
         settingKey: "colorScheme"
-        label: "Color Sheme"
+        label: "Color Scheme"
         description: "Select one of the color schemes available in the system."
         options: colorSchemes
         defaultValue: "BreezeModified"
@@ -89,9 +89,8 @@ PluginSettings {
         minimum: 5
         maximum: 32
         unit: "px"
-        leftIcon: "schedule"
+        leftIcon: "text_format"
     }
-
 
     StyledRect {
         width: parent.width
