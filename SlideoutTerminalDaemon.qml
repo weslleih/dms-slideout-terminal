@@ -165,7 +165,6 @@ PluginComponent {
 
                     obj.sessionEnd.connect(function (terminal) {
                         var index = listTerminals.children.indexOf(terminal)
-                        console.log(index)
                         tabClose(index)
                     });
 

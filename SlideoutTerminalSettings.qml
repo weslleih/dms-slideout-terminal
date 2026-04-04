@@ -1,5 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
+import QtQuick.Dialogs
 
 import qs.Common
 import qs.Services
@@ -13,6 +15,7 @@ PluginSettings {
     pluginId: "slideoutTerminal"
 
     property list<string> colorSchemes
+    property list<string> fonts : Qt.fontFamilies()
 
     readonly property string commandStr: "dms ipc call plugins toggle slideoutTerminal"
 
@@ -71,6 +74,14 @@ PluginSettings {
         defaultValue: "BreezeModified"
     }
 
+    SelectionSetting {
+        settingKey: "font"
+        label: "Font"
+        description: "Select one of the fonts available in the system."
+        options: fonts
+        defaultValue: "Monospace"
+    }
+
     SliderSetting {
         settingKey: "fontSize"
         label: "Font size"
@@ -80,6 +91,7 @@ PluginSettings {
         unit: "px"
         leftIcon: "schedule"
     }
+
 
     StyledRect {
         width: parent.width

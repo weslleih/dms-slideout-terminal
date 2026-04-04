@@ -1,7 +1,8 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import QMLTermWidget
 import QtQuick.Controls
+
+import QMLTermWidget
 
 import qs.Common
 import qs.Services
@@ -17,22 +18,14 @@ Item {
 
     signal sessionEnd(SlideoutTerminal terminal)
 
-    onVisibleChanged: {
-        if (visible) {
-            terminalWidget.forceActiveFocus();
-        }
-    }
-
-    onHeightChanged: {
-        //Prevents a bug that occurs when the height value becomes less than 0.
-        if (height > 0) {
-            terminalWidget.height = height;
-        }
+    Action {
+        onTriggered: terminalWidget.pasteClipboard()
+        shortcut: "Ctrl+Shift+V"
     }
 
     Action {
         onTriggered: terminalWidget.pasteClipboard()
-        shortcut: "Ctrl+Shift+V"
+        shortcut: "Shift+Insert"
     }
 
     Action {
@@ -40,13 +33,17 @@ Item {
         shortcut: "Ctrl+Shift+C"
     }
 
+    Action {
+        onTriggered: terminalWidget.copyClipboard()
+        shortcut: "Ctrl+Inset"
+    }
+
     QMLTermWidget {
         id: terminalWidget
 
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
 
-        font.family: "Monospace"
+        font.family: settingsData.font || "Monospace"
         font.pointSize: settingsData.fontSize || 10
 
         colorScheme: settingsData.colorScheme || "BreezeModified"
@@ -55,7 +52,7 @@ Item {
             id: mainsession
             initialWorkingDirectory: "$HOME"
             onFinished: {
-                root.sessionEnd(root)
+                root.sessionEnd(root);
             }
         }
 
@@ -73,6 +70,14 @@ Item {
                 anchors.margins: 5
                 radius: width * 0.5
                 anchors.fill: parent
+            }
+        }
+
+        onVisibleChanged:{
+            if(visible){
+                terminalWidget.forceActiveFocus();
+                //Prevents a visual glitch simulating pressing the down arrow key.
+                terminalWidget.simulateKeyPress(16777237, 0, false, 0, "")
             }
         }
     }
