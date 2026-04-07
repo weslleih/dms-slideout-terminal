@@ -1,0 +1,19 @@
+{
+  "id": "slideoutTerminal",
+  "name": "Slideout Terminal",
+  "description": "A simple slideout terminal",
+  "version": "1.0.0",
+  "author": "wesllei.h",
+  "icon": "terminal",
+  "type": "daemon",
+  "capabilities": [
+    "slideout",
+    "Terminal"
+  ],
+  "component": "./SlideoutTerminalDaemon.qml",
+  "settings": "./SlideoutTerminalSettings.qml",
+  "permissions": [
+    "settings_read",
+    "settings_write"
+  ]
+}
